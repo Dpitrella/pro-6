@@ -52,5 +52,6 @@ works.forEach(item => {
     gallery.appendChild(listItem)
 });
 
+
 getWork()
  
