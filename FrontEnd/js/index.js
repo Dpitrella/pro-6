@@ -1,57 +1,96 @@
-const works = [
-    {id: 1, title: 'Abajour Tahina', imageUrl: 'http://localhost:5678/images/abajour-tahina1651286843956.png', categoryId: 1, userId: 1},
-    
-    {id: 2, title: 'Appartement Paris V', imageUrl: 'http://localhost:5678/images/appartement-paris-v1651287270508.png', categoryId: 2, userId: 1},
-    
-    {id: 3, title: 'Restaurant Sushisen - Londres', imageUrl: 'http://localhost:5678/images/restaurant-sushisen-londres1651287319271.png', categoryId: 3, userId: 1},
-    
-    {id: 4, title: 'Villa “La Balisiere” - Port Louis', imageUrl: 'http://localhost:5678/images/la-balisiere1651287350102.png', categoryId: 2, userId: 1},
-    
-    {id: 5, title: 'Structures Thermopolis', imageUrl: 'http://localhost:5678/images/structures-thermopolis1651287380258.png', categoryId: 1, userId: 1},
-    
-    {id: 6, title: 'Appartement Paris X', imageUrl: 'http://localhost:5678/images/appartement-paris-x1651287435459.png', categoryId: 2, userId: 1},
-    
-    {id: 7, title: 'Pavillon “Le coteau” - Cassis', imageUrl: 'http://localhost:5678/images/le-coteau-cassis1651287469876.png', categoryId: 2, userId: 1},
-    
-    {id: 8, title: 'Villa Ferneze - Isola d’Elba', imageUrl: 'http://localhost:5678/images/villa-ferneze1651287511604.png', categoryId: 2, userId: 1},
-    
-    {id: 9, title: 'Appartement Paris XVIII', imageUrl: 'http://localhost:5678/images/appartement-paris-xviii1651287541053.png', categoryId: 2, userId: 1},
-    
-    {id: 10, title: 'Bar “Lullaby” - Paris', imageUrl: 'http://localhost:5678/images/bar-lullaby-paris1651287567130.png', categoryId: 3, userId: 1},
-    
-    {id: 11, title: 'Hotel First Arte - New Delhi', imageUrl: 'http://localhost:5678/images/hotel-first-arte-new-delhi1651287605585.png', categoryId: 3, userId: 1}
-];
+const filterContainer = document.querySelector('.filters'); 
+const gallery = document.querySelector('.gallery'); 
 
+//**************** API WORKS ************//
 
-async function getWork () {
-    let response = await fetch ("http://localhost:5678/api/works")
-    let data = await response.json ()
-    console.log (data)
+async function getWork() {
+    let response = await fetch("http://localhost:5678/api/works");
+    let data = await response.json();
+    return data;
 }
 
-const gallery = document.querySelector('.gallery')
-gallery.innerHTML = ''
+//*************** API FILTERS *********//
 
-works.forEach(item => {
-    const listItem = document.createElement('div')
-    listItem.classList.add('item')
+async function getFilters() {
+    let response = await fetch("http://localhost:5678/api/categories");
+    let data = await response.json();
+    return data;
+}
 
-    const figure = document.createElement('figure')
+//*********** BUTTONS *************//
 
-    const image = document.createElement('img')
+async function createFilterButtons() {
+    const fragment = document.createDocumentFragment();
 
-    image.src = item.imageUrl
-    image.alt = item.title
-    figure.appendChild(image)
+    
+    const allButton = document.createElement('button');
+    allButton.textContent = 'Tous';
+    allButton.classList.add('filter-button', 'active'); 
+    allButton.dataset.categoryId = 'all';
+    fragment.appendChild(allButton);
 
-    const figcaption = document.createElement('figcaption')
-    figcaption.textContent = item.title
+    
+    const categories = await getFilters();
 
-    figure.appendChild(figcaption)
-    listItem.appendChild(figure)
-    gallery.appendChild(listItem)
+    
+    categories.forEach(category => {
+        const button = document.createElement('button');
+        button.textContent = category.name;
+        button.classList.add('filter-button');
+        button.dataset.categoryId = category.id;
+        fragment.appendChild(button);
+    });
+
+    filterContainer.appendChild(fragment);
+}
+
+
+function displayWorks(works, filterId = 'all') {
+    gallery.innerHTML = ''; 
+    const fragment = document.createDocumentFragment();
+
+    const filteredWorks = filterId === 'all'
+        ? works
+        : works.filter(work => work.categoryId == filterId); 
+
+    filteredWorks.forEach(work => {
+        const workItem = document.createElement('div');
+        workItem.classList.add('work-item');
+        workItem.innerHTML = `
+            <img src="${work.imageUrl}" alt="${work.title}" width="200">
+            <h3>${work.title}</h3>
+        `;
+        fragment.appendChild(workItem);
+    });
+
+   gallery.appendChild(fragment);
+}
+
+
+filterContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('filter-button')) {
+
+        // - class 'active' 
+
+        const buttons = filterContainer.querySelectorAll('.filter-button');
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        // + class 'active' 
+
+        event.target.classList.add('active');
+
+        // get id categoty
+
+        const filterId = event.target.dataset.categoryId;
+
+        
+        getWork().then(works => displayWorks(works, filterId));
+    }
 });
 
 
-getWork()
- 
+(async function init() {
+    await createFilterButtons();
+    const works = await getWork();
+    displayWorks(works, 'all');
+})();

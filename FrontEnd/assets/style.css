@@ -127,6 +127,39 @@ li:hover {
 }
 
 
+/************* FILTERS **********/
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.filters button {
+    background-color: white;
+    border: #1D6154 1px solid;
+    color: #1D6154;
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    cursor: pointer; 
+    transition: background-color 0.2s, color 0.2s; 
+}
+
+
+.filters button.active {
+    background-color: #1D6154;
+    color: white;
+    border: #1D6154 1px solid; 
+}
+
+
+.filters button:active {
+    background-color: #1D6154;
+    color: white;
+}
+/************/
 
 
 .gallery {
