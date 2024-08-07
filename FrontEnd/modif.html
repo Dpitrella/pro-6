@@ -14,14 +14,19 @@
 	
 </head>
 <body>
+
+	<div id="modeEdition">
+		<i class="fa-regular fa-pen-to-square js-modale"></i> <p> Mode edition</p>
+	</div>
+	
 <header>
 
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li>projets</li>
+			<a href="../FrontEnd/index.html"> <li>projets</li> </a>
 			<li>contact</li>
-			<a href="../FrontEnd/login.html"> <li>login </li></a>
+			<a href="../html's/login.html"> <li>login</li> </a>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -39,10 +44,33 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+
+		<div class="modif">
+
+			<h2>Mes Projets</h2>
+			<button class="btn-modale js-modale"><i class="fa-solid fa-pen-to-square"></i></button>
+			
+			<aside id="modal1" class="modal1" aria-hidden="true" role="dialog" style="display: none;">
+				<div class="modal-wrapper">
+					<div class="titModal ">
+						<h3>Galerie photo</h3>
+					
+					</div>
+					<div id="modalContent" class="modalContent">
+
+					</div>
+					<div class="btn-ajout">
+						<button>Ajouter une photo</button>
+					</div>
+				</div>
+			</aside>
+		</div>
+	
 		<div class="filters">
 			
 		</div>
+
+		
 		<div class="gallery">
 			<figure>
 				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
@@ -112,6 +140,6 @@
 		</ul>
 	</nav>
 </footer>
-<script src="./js/index.js"></script>
+<script src="../FrontEnd/js/modif.js"></script>
 </body>
 </html>

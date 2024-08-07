@@ -57,8 +57,9 @@ h2 {
     align-items: center;
     font-family: 'work sans';
 }
-.log a {
+a {
     color: black;
+    text-decoration: none;
 
 }
 form input {

@@ -136,7 +136,179 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+/*********** btn modif ***********/
 
+.modif {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 50px;
+	
+}
+.modif button {
+border: none;
+background-color: white;
+margin-bottom: 20px;
+} 
+.modif .fa-regular {
+color: black;
+font-size: 15px;
+margin-right: 10px;
+
+}
+
+* { box-sizing: border-box; }
+
+.modal-wrapper {
+	width: 600px;
+	padding: 20px;
+	max-width: calc(100vw - 20px) ;
+	max-height: calc(100vw - 20px) ;
+	background-color: white;
+	border-radius: 15px;
+}
+
+.titModal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 15px;
+	width: 50%;
+	font-family: 'work sans';
+	margin-left: 130px;
+}
+.modal1 {
+	display: flex;
+	position: fixed;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(57, 57, 57, 0.429);
+	overflow: scroll;
+}
+
+#modeEdition {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	background-color: black;
+	width: 100%;
+	height: 40px;
+	gap: 20px;
+	
+	
+}
+
+
+
+
+
+
+
+
+.gallery {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 16px; /* Espacio entre los elementos */
+    padding: 16px;
+}
+
+.modalContent{
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.modalContent img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.modalContent h3 {
+    margin: 10px 0 0;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+
+.modalContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    
+}
+
+.modalContent {
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.modalContent img {
+    max-width: 100%;
+    height: auto;
+    
+}
+
+.modalContent h3 {
+    margin: 10px 0 0;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.btn-ajout {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-top: 1px solid black;
+	width: 50%;
+	margin-top: 20px;
+	margin-left: 130px;
+	
+}
+.btn-ajout button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #1D6154;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 5px;
+	width: 160px;
+	height: 35px;
+	font-size: 15px;
+	font-family: 'work sans';
+	border-radius: 20px;
+	cursor: pointer;
+}
 
 /************* FILTERS **********/
 

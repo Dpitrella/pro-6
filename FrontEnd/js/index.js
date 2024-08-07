@@ -1,6 +1,6 @@
 const filterContainer = document.querySelector('.filters'); 
 const gallery = document.querySelector('.gallery'); 
-
+let modalContent = document.querySelector('.modalContent')
 //**************** API WORKS ************//
 
 async function getWork() {
@@ -94,3 +94,10 @@ filterContainer.addEventListener('click', (event) => {
     const works = await getWork();
     displayWorks(works, 'all');
 })();
+
+
+
+/////////////*********************************************/////////
+
+
+    
