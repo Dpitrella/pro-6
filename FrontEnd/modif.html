@@ -16,7 +16,7 @@
 <body>
 
 	<div id="modeEdition">
-		<i class="fa-regular fa-pen-to-square js-modale"></i> <p> Mode edition</p>
+		<i id="btn-modale" class="fa-regular fa-pen-to-square btn-modale"></i> <p> Mode edition</p>
 	</div>
 	
 <header>
@@ -46,32 +46,52 @@
 	<section id="portfolio">
 
 		<div class="modif">
-
-			<h2>Mes Projets</h2>
-			<button class="btn-modale js-modale"><i class="fa-solid fa-pen-to-square"></i></button>
 			
-			<aside id="modal1" class="modal1" aria-hidden="true" role="dialog" style="display: none;">
-				<div class="modal-wrapper">
-					<div class="titModal ">
-						<h3>Galerie photo</h3>
-					
+			<div class="modale">
+				<h2>Mes Projets <button id="btn-modale" class="btn-modale"><i class="fa-solid fa-pen-to-square"></i></button></h2>
+			</div>
+			
+			<!-- Modal 1 -->
+			<div id="modal1" class="modal1" aria-hidden="true" role="dialog" style="display: none;">
+				<aside class="bac-modal">
+					<div class="modal-wrapper">
+						<span class="close-modal">&times;</span>
+						<div class="titModal">
+							<h3>Galerie photo</h3>
+						</div>
+						<div id="modalContent" class="modalContent"></div>
+						<div class="btn-ajout">
+							<button id="add-photo-btn">Ajouter une photo</button>
+							<input type="file" id="file-input" style="display: none;">
+						</div>
 					</div>
-					<div id="modalContent" class="modalContent">
-
+				</aside>
+			</div>
+			
+			<!-- Modal 2 -->
+			<div id="modal2" class="modal2" aria-hidden="true" role="dialog" style="display: none;">
+				<aside class="bac-modal-2">
+					<div class="modal-wrapper-2">
+						<span class="close-modal-2">&times;</span>
+						<div class="titModal">
+							<h3>Ajouter une nouvelle photo</h3>
+						</div>
+						<div class="upload-section">
+							<button id="upload-photo-btn">Télécharger une photo</button>
+							<input type="file" id="file-input" style="display: none;">
+						</div>
 					</div>
-					<div class="btn-ajout">
-						<button>Ajouter une photo</button>
-					</div>
-				</div>
-			</aside>
-		</div>
+				</aside>
+			</div>
+			
+		
 	
 		<div class="filters">
 			
 		</div>
 
 		
-		<div class="gallery">
+		<div id="mainContent" class="gallery">
 			<figure>
 				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
 				<figcaption>Abajour Tahina</figcaption>

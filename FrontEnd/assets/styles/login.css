@@ -62,6 +62,17 @@ a {
     text-decoration: none;
 
 }
+
+.error-message {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+	width: 98%;
+	background-color: rgba(255, 0, 0, 0.718);
+	color: white;
+}
+
 form input {
     border: none;
     box-shadow:3px 3px 7px 0px rgba(0, 0, 0, 0.2);
