@@ -139,20 +139,22 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
-/*********** modif ***********/
+/*********** modif + modal 1 ***********/
 
 .modif {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
+	align-items: center;	
 	
+
 }
 .modal1 {
 	display: flex;
 	justify-content: center;
 	top: 30%;
 	position: relative;	
+	
 	
 }
 .bac-modal {
@@ -178,13 +180,14 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 600px;
-	padding: 20px;
-	max-width: calc(100vw - 20px) ;
-	max-height: calc(100vw - 20px) ;
+	padding: 5%;
+	width: 630px ;
+	height: 670px ;
 	background-color: white;
 	border-radius: 15px;
 }
+
+
 .modif button {
 border: none;
 background-color: white;
@@ -219,6 +222,154 @@ margin-right: 10px;
 	margin-bottom: 40px;
 	margin-top: 10px;
 }
+/****** modal 2 **********/
+
+#goBack {
+	width: 50px;
+	height: auto;
+}
+.modal-wrapper-2 {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	align-items: center;
+	width: 630px ;
+	height: 670px ;
+	font-family: 'Work Sans';
+	border-radius: 10px;
+	padding: 30px;
+	
+}
+.headModal {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.close-modal-2 {
+	font-size: 25px;
+}
+.titModal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 420px;
+}
+
+.ajouter {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #E8F1F6;
+	width: 420px;
+	height: 169px;
+	top: 786px;
+	left: 510px;
+	gap: 0px;
+	border-radius: 3px 0px 0px 0px;
+	opacity: 0px;
+	font-family: 'Work Sans';
+	padding: 20px;
+	
+
+}
+.ajouter .fa-image{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 76px;
+	height: 76px;
+	top: 799px;
+	left: 681px;
+	padding: 9.5px 3.93px 6.88px 3.93px;
+	gap: 0px;
+	opacity: 0px;
+	color: #CBD6DC;
+	font-size: 50px;
+}
+.ajouter button {
+	width: 173px;
+	height: 36px;
+	top: 881px;
+	left: 633px;
+	gap: 0px;
+	border-radius: 50px;
+	opacity: 0px;
+	background-color: #CBD6DC;
+	color: #306685;
+	font-family: 'Work Sans';
+}
+.ajouter p {
+	width: 94px;
+	height: 12px;
+	top: 924px;
+	left: 673px;
+	gap: 0px;
+	opacity: 0px;
+	font-family: Work Sans;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 11.73px;
+	text-align: center;
+}
+
+#work-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	font-family: Work Sans;
+	font-size: 14px;
+	text-align: left;
+	width: 420px;
+	
+}
+#work-form label {
+	margin-top: 15px;
+	width: 32px;
+	height: 16px;
+	left: 510px;
+
+}
+#work-form input , #category {
+	width: 420px;
+	height: 51px;
+	top: 1011px;
+	left: 510px;
+	gap: 0px;
+	opacity: 0px;
+	box-shadow: 0px 4px 14px 0px #00000017;
+	border: none;
+}
+.valid {
+	display: flex;
+	justify-content: center;
+	width: 75%;
+	border-top: 1px solid #B3B3B3;
+	margin-top: 50px;
+	margin-left: 50px;
+}
+.valid button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin-top: 5%;
+	background-color: #A7A7A7;
+	color: #FFFFFF;
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	opacity: 0px;
+	font-family: 'Syne';
+}
+
+
+
+
+
+
 
 
 #modeEdition {
@@ -252,16 +403,17 @@ margin-right: 10px;
 }
 
 
-
+.delete-button {
+	color: white;
+}
 .delete-button i {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: black;
-	color: white;
-	height: 17px;
-	width: 17px;
-	border-radius: 5px;
+	height: 20px;
+	width: 20px;
+	border-radius: 3px;
 	font-size: 10px;
 	
 	
@@ -270,7 +422,7 @@ margin-right: 10px;
 .work-item {
 	display:flex ;
 	flex-direction: column ;
-	width: 80%;	
+	width: 70%;	
 }
 
 
