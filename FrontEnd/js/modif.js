@@ -7,6 +7,30 @@ const fileInput = document.getElementById('file-input');
 const ajouterDiv = document.getElementById('ajouter');
 const gallery = document.querySelector('.gallery'); 
 
+//* bloquer l'accès à la modification *//
+document.addEventListener('DOMContentLoaded', async () => {
+    const referrer = document.referrer;
+
+    if (!authToken || !referrer.includes('login.html')) {
+        window.location.href = 'login.html';
+    } else {
+        try {
+            const response = await fetch('http://localhost:5678/api/validate-token', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            
+        } catch (error) {
+            console.error('Erreur lors de la validation du token:', error);
+            localStorage.removeItem('authToken');
+            window.location.href = 'login.html';
+        }
+    }
+});
 
 async function loadCategory() {
     fetch('http://localhost:5678/api/categories')
@@ -65,7 +89,10 @@ async function fetchWorks() {
 }
 
 async function deleteWork(id) {
-    if (!authToken) return console.error("Aucun token d'authentification trouvé.");
+    if (!authToken){
+        window.location.href = 'login.html'
+        return 
+    } 
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${authToken}` }
@@ -82,7 +109,7 @@ async function loadModalContent() {
     const works = await fetchWorks();
     if (works) {
         modalContent.innerHTML = works.map(work => `
-            <div class="work-item" style="position: relative;">
+            <div class="work-" style="position: relative;">
                 <img src="${work.imageUrl}" alt="${work.title}" width="100">
                 <button class="delete-button" data-id="${work.id}" style="position: absolute; top: 5px; right: 5px; background: transparent; border: none; cursor: pointer;">
                     <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
@@ -146,23 +173,28 @@ fileInput.addEventListener('change', (event) => {
     }
 });
 
-document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(this);
-    const fileInput = document.getElementById('photo')
+document.getElementById('myForm').addEventListener('click', function(event) {
+    const formData = new FormData();
+    const fileInput = document.getElementById('file-input')
+    formData.append('title', document.querySelector('#title').value)
+    formData.append('category', document.querySelector('#category').value)
+
     if (fileInput.files.length > 0) {
-        formData.append('photo', fileInput.files[0]);
+        formData.append('image', fileInput.files[0]);
     } 
 
     fetch('http://localhost:5678/api/works', {
+        headers: {
+            "authorization" : "Bearer " + authToken,
+        },
         method: 'POST',
         body: formData,
     })
     .then(response => response.json())
     .then(data => {
         console.log('Succès:', data);
-        toggleModal(false, modal2);
-        loadModalContent();
+        // toggleModal(false, modal2);
+        // loadModalContent();
     })
     .catch(error => console.error('Erreur:', error));
 });
@@ -172,3 +204,18 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
     const works = await getWork();
     displayWorks(works, 'all');
 })();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = ['title', 'category', 'file-input'].map(id => document.getElementById(id)),
+          validerButton = document.getElementById('myForm'),
+          checkFormCompletion = () => {
+              const allFilled = inputs[0].value.trim() && inputs[1].value && inputs[2].files.length;
+              validerButton.style.backgroundColor = allFilled ? '#1D6154' : '';
+              validerButton.disabled = !allFilled;
+          };
+
+    inputs.forEach(input => input.addEventListener('input', checkFormCompletion));
+    inputs[1].addEventListener('change', checkFormCompletion);
+    validerButton.disabled = true;
+});

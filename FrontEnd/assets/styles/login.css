@@ -59,10 +59,10 @@ h2 {
 }
 a {
     color: black;
-    text-decoration: none;
-
 }
-
+.proj{
+	text-decoration: none;
+}
 .error-message {
 	display: none;
 	text-align: center;

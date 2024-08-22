@@ -1,3 +1,4 @@
+
 document.getElementById("logForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -20,4 +21,4 @@ document.getElementById("logForm").addEventListener("submit", function(event) {
         errorMessageElement.innerText = error.message || "Identification non valide, réessayez";
         errorMessageElement.style.display = 'block';
     });
-});
+})

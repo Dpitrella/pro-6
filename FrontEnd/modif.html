@@ -17,6 +17,7 @@
 
 	<div id="modeEdition">
 		<i id="btn-modale" class="fa-regular fa-pen-to-square btn-modale"></i> <p> Mode edition</p>
+		
 	</div>
 	
 <header>
@@ -26,7 +27,7 @@
 		<ul>
 			<a href="../FrontEnd/index.html"> <li>projets</li> </a>
 			<li>contact</li>
-			<a href="../html's/login.html"> <li>login</li> </a>
+			<a href="../FrontEnd/login.html"> <li>login</li> </a>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -48,7 +49,7 @@
 		<div class="modif">
 			
 			<div class="modale">
-				<h2>Mes Projets <button id="btn-modale" class="btn-modale"><i class="fa-solid fa-pen-to-square"></i></button></h2>
+				<h2>Mes Projets <button id="btn-modale" class="btn-modale"><i class="fa-solid fa-pen-to-square"></i> modifier</button></h2>
 			</div>
 		
 			<!-- Modal 1 -->
@@ -80,27 +81,29 @@
 						<div class="titModal">
 							<h3>Ajout photo</h3>
 						</div>
-						<div class="ajouter" id="ajouter">
-							<i class="fa-regular fa-image"></i>
-							<button type="button" id="ajouter-button" >+ Ajouter photo</button>
-							<input type="file" id="file-input" style="display: none;" accept="image/*" >
-							<p>jpg, png : 4mo max</p>
-						</div>
-						<img id="image-preview" src="" alt="Vista previa de la imagen" style="display:none; max-width: 200px; max-height: 200px;"/>
+						
 
 
 						<div id="infoAjout" class="info-ajout">
+
 							<form id="work-form">
+								<div class="ajouter" id="ajouter">
+									<i class="fa-regular fa-image"></i>
+									<button type="button" id="ajouter-button" >+ Ajouter photo</button>
+									<input type="file" id="file-input" style="display: none;" accept="image/*" >
+									<p>jpg, png : 4mo max</p>
+								</div>
+								<img id="image-preview" src="" alt="Vista previa de la imagen" style="display:none; max-width: 200px; max-height: 200px;"/>
 								<label for="title">Titre</label>
 								<input type="text" id="title" name="title" required>
 					
-								<label for="category">Categoría:</label>
+								<label for="category">Categorie:</label>
 								<select id="category" name="category" required>
 									<option value=""></option>
 								</select>
 					
 								<div class="valid">
-									<button id="myForm" type="submit">Valider</button>
+									<button id="myForm" type="button">Valider</button>
 								</div>
 							</form>
 						</div>
@@ -181,6 +184,6 @@
 		</ul>
 	</nav>
 </footer>
-<script src="../FrontEnd/js/modif.js"></script>
+<script defer src="../FrontEnd/js/modif.js"></script>
 </body>
 </html>
