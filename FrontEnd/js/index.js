@@ -97,7 +97,7 @@ filterContainer.addEventListener('click', (event) => {
 
 
 
-/////////////*********************************************/////////
+
 
 
     

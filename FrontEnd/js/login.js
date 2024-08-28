@@ -10,10 +10,10 @@ document.getElementById("logForm").addEventListener("submit", function(event) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     })
-    .then(response => response.ok ? response.json() : response.json().then(data => { throw new Error(data.message || "Identification non valide"); }))
+    .then(response => response.ok ? response.json() : response.json().then(data => { throw new Error(data.message || "Mot de passe incorrect"); }))
     .then(data => {
         localStorage.setItem("authToken", data.token);
-        window.location.href = '../FrontEnd/modif.html';
+        window.location.href = './modif.html';
     })
     .catch(error => {
         console.error("Erreur lors de la requête:", error.message);

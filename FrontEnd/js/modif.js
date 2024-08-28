@@ -1,7 +1,7 @@
 const modal1 = document.getElementById('modal1');
 const modal2 = document.getElementById('modal2');
 const modalContent = document.getElementById('modalContent');
-const authToken = localStorage.getItem("authToken");
+const authToken = () => localStorage.getItem("authToken");
 const ajouterButton = document.getElementById('ajouter-button');
 const fileInput = document.getElementById('file-input');
 const ajouterDiv = document.getElementById('ajouter');
@@ -11,12 +11,25 @@ const redirectToLogin = () => window.location.href = 'login.html';
 
 //*** Bloquer l'accès s'il n'y a pas de token ***//
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!authToken || !document.referrer.includes('login.html')) {
+    if (!authToken()) {
         redirectToLogin();
     } 
+    /**TODO  */
     loadCategory();
     const works = await getWork();
     displayWorks(works, 'all');
+    const inputs = ['title', 'category', 'file-input'].map(id => document.getElementById(id)),
+    validerButton = document.getElementById('myForm'),
+    
+    checkFormCompletion = () => {
+        const allFilled = inputs[0].value.trim() && inputs[1].value && inputs[2].files.length;
+        validerButton.style.backgroundColor = allFilled ? '#1D6154' : '';
+        validerButton.disabled = !allFilled;
+    };
+
+inputs.forEach(input => input.addEventListener('input', checkFormCompletion));
+inputs[1].addEventListener('change', checkFormCompletion);
+validerButton.disabled = true;
 });
 
 const loadCategory = () => fetch('http://localhost:5678/api/categories')
@@ -24,7 +37,7 @@ const loadCategory = () => fetch('http://localhost:5678/api/categories')
     .then(categories => {
         const selectCategory = document.getElementById('category');
         selectCategory.innerHTML = '<option value=""></option>' +
-            categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+        categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
     });
 
 const getWork = () => fetch("http://localhost:5678/api/works").then(res => res.json());
@@ -34,10 +47,10 @@ const displayWorks = (works, filterId = 'all') => {
         .map(work => `<div class="work-item"><img src="${work.imageUrl}" alt="${work.title}" width="200"><h3>${work.title}</h3></div>`)
         .join('');
 };
-//*** supprimer des travaux ***//
-const deleteWork = id => fetch(`http://localhost:5678/api/works/${id}`, {
+//*** supprimer les travaux ***//
+const deleteWork = (id) => fetch(`http://localhost:5678/api/works/${id}`, {
     method: 'DELETE',
-    headers: { 'Authorization': `Bearer ${authToken}` }
+    headers: { 'Authorization': `Bearer ${authToken()}` }
 }).then(res => res.ok ? document.querySelector(`.gallery [data-id="${id}"]`)?.remove() : console.error('Erreur lors de la suppression:', res.statusText));
 
 const loadModalContent = async () => {
@@ -107,24 +120,12 @@ document.getElementById('myForm').addEventListener('click', () => {
     formData.append('category', document.querySelector('#category').value);
     if (fileInput.files.length > 0) formData.append('image', fileInput.files[0]);
     fetch('http://localhost:5678/api/works', {
-        headers: { "authorization": `Bearer ${authToken}` },
+        headers: { "authorization": `Bearer ${authToken()}` },
         method: 'POST',
         body: formData,
+    }) .then(data => {
+        window.location.reload()
     })
 });
 
 //*** Validation du formulaire ***//
-document.addEventListener('DOMContentLoaded', () => {
-    const inputs = ['title', 'category', 'file-input'].map(id => document.getElementById(id)),
-          validerButton = document.getElementById('myForm'),
-          
-          checkFormCompletion = () => {
-              const allFilled = inputs[0].value.trim() && inputs[1].value && inputs[2].files.length;
-              validerButton.style.backgroundColor = allFilled ? '#1D6154' : '';
-              validerButton.disabled = !allFilled;
-          };
-
-    inputs.forEach(input => input.addEventListener('input', checkFormCompletion));
-    inputs[1].addEventListener('change', checkFormCompletion);
-    validerButton.disabled = true;
-});
