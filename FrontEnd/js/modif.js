@@ -15,7 +15,7 @@ const authToken = () => localStorage.getItem("authToken");
 document.addEventListener('DOMContentLoaded', async () => {
     const referrer = document.referrer;
 
-    if (!authToken() || !referrer.includes('login.html')) {
+    if (!authToken() ) {
         redirectToLogin()
         return;
     }
@@ -153,11 +153,12 @@ document.getElementById('myForm').addEventListener('click', async (event) => {
     if (fileInput.files.length > 0) {
         formData.append('image', fileInput.files[0]);
     } 
-    fetch('http://localhost:5678/api/works', {
+   const response = await fetch('http://localhost:5678/api/works', {
         headers: { "authorization": `Bearer ${authToken()}` },
         method: 'POST',
         body: formData,
-    });
+    }); 
+    window.location.reload()
 });
 
 

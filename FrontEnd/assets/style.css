@@ -243,7 +243,7 @@ margin-right: 10px;
     background-color: white;
     border: #1D6154 1px solid;
     color: #1D6154;
-    width: 160px;
+    min-width: 100px;
     height: 30px;
     border-radius: 20px;
     cursor: pointer; 

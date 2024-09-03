@@ -67,10 +67,8 @@ a {
 	display: none;
 	text-align: center;
 	align-items: center;
-	height: 40px;
-	width: 98%;
-	background-color: rgba(255, 0, 0, 0.718);
-	color: white;
+	margin-top: 20px;
+	color: red;
 	
 }
 
@@ -78,6 +76,7 @@ form input {
     border: none;
     box-shadow:3px 3px 7px 0px rgba(0, 0, 0, 0.2);
     font-size: 25px;
+	background: white  ; 
 }
 button {
     display: flex;
