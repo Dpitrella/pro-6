@@ -1,5 +1,5 @@
 
-document.getElementById("logForm").addEventListener("submit", function(event) {
+ document.getElementById("logForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value;
@@ -10,6 +10,7 @@ document.getElementById("logForm").addEventListener("submit", function(event) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     })
+    
     .then(response => response.ok ? response.json() : response.json().then(data => { throw new Error(data.message || "Mot de passe incorrect"); }))
     .then(data => {
         localStorage.setItem("authToken", data.token);
@@ -21,4 +22,6 @@ document.getElementById("logForm").addEventListener("submit", function(event) {
         errorMessageElement.innerText = error.message || "Identification non valide, réessayez";
         errorMessageElement.style.display = 'block';
     });
-})
+}) 
+
+

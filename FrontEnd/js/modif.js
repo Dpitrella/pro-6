@@ -1,46 +1,43 @@
 const modal1 = document.getElementById('modal1');
 const modal2 = document.getElementById('modal2');
 const modalContent = document.getElementById('modalContent');
-const authToken = () => localStorage.getItem("authToken");
 const ajouterButton = document.getElementById('ajouter-button');
 const fileInput = document.getElementById('file-input');
 const ajouterDiv = document.getElementById('ajouter');
 const gallery = document.querySelector('.gallery');
-const redirectToLogin = () => window.location.href = 'login.html';
 
+const getWork = () => fetch("http://localhost:5678/api/works").then(res => res.json());
+const redirectToLogin = () => window.location.href = 'login.html';
+const authToken = () => localStorage.getItem("authToken");
 
 //*** Bloquer l'accès s'il n'y a pas de token ***//
+
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!authToken()) {
-        redirectToLogin();
-    } 
-    /**TODO  */
-    loadCategory();
+    const referrer = document.referrer;
+
+    if (!authToken() || !referrer.includes('login.html')) {
+        redirectToLogin()
+        return;
+    }
+
+    //*** Validation du formulaire ***//
+
     const works = await getWork();
     displayWorks(works, 'all');
     const inputs = ['title', 'category', 'file-input'].map(id => document.getElementById(id)),
     validerButton = document.getElementById('myForm'),
-    
-    checkFormCompletion = () => {
-        const allFilled = inputs[0].value.trim() && inputs[1].value && inputs[2].files.length;
-        validerButton.style.backgroundColor = allFilled ? '#1D6154' : '';
-        validerButton.disabled = !allFilled;
-    };
 
+    checkFormCompletion = () => {
+    const allFilled = inputs[0].value.trim() && inputs[1].value && inputs[2].files.length;
+    validerButton.style.backgroundColor = allFilled ? '#1D6154' : '';
+    validerButton.disabled = !allFilled;
+    
+};
 inputs.forEach(input => input.addEventListener('input', checkFormCompletion));
 inputs[1].addEventListener('change', checkFormCompletion);
 validerButton.disabled = true;
+
 });
-
-const loadCategory = () => fetch('http://localhost:5678/api/categories')
-    .then(res => res.json())
-    .then(categories => {
-        const selectCategory = document.getElementById('category');
-        selectCategory.innerHTML = '<option value=""></option>' +
-        categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-    });
-
-const getWork = () => fetch("http://localhost:5678/api/works").then(res => res.json());
 
 const displayWorks = (works, filterId = 'all') => {
     gallery.innerHTML = works.filter(work => filterId === 'all' || work.categoryId == filterId)
@@ -48,6 +45,7 @@ const displayWorks = (works, filterId = 'all') => {
         .join('');
 };
 //*** supprimer les travaux ***//
+
 const deleteWork = (id) => fetch(`http://localhost:5678/api/works/${id}`, {
     method: 'DELETE',
     headers: { 'Authorization': `Bearer ${authToken()}` }
@@ -113,19 +111,55 @@ fileInput.addEventListener('change', e => {
     }
 });
 
+
 //*** formulaire ***//
-document.getElementById('myForm').addEventListener('click', () => {
+
+//*** charger les catégories depuis l'API ***//
+
+const loadCategories = async () => {
+    try {
+        const response = await fetch('http://localhost:5678/api/categories');
+        const categories = await response.json(); 
+        const categorySelect = document.getElementById('category'); 
+
+        categorySelect.innerHTML = '';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        
+        categorySelect.appendChild(defaultOption);
+
+        //*** ajout categories comme options ***//
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name; 
+            categorySelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erreur de chargement des catégories :', error);
+    }
+};
+    loadCategories(); 
+
+//*** Logique du formulaire ***//
+document.getElementById('myForm').addEventListener('click', async (event) => {
+    event.preventDefault()
+
     const formData = new FormData();
     formData.append('title', document.querySelector('#title').value);
     formData.append('category', document.querySelector('#category').value);
-    if (fileInput.files.length > 0) formData.append('image', fileInput.files[0]);
+
+    if (fileInput.files.length > 0) {
+        formData.append('image', fileInput.files[0]);
+    } 
     fetch('http://localhost:5678/api/works', {
         headers: { "authorization": `Bearer ${authToken()}` },
         method: 'POST',
         body: formData,
-    }) .then(data => {
-        window.location.reload()
-    })
+    });
 });
 
-//*** Validation du formulaire ***//
+
+
+
