@@ -345,13 +345,17 @@ margin-right: 10px;
 	color: #CBD6DC;
 	font-size: 50px;
 }
-.ajouter button {
+#ajouter-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 173px;
 	height: 36px;
 	top: 881px;
 	left: 633px;
 	gap: 0px;
 	border-radius: 50px;
+	margin-bottom: 10px;
 	opacity: 0px;
 	background-color: #CBD6DC;
 	color: #306685;
@@ -391,8 +395,6 @@ margin-right: 10px;
 }
 #work-form label {
 	margin-top: 15px;
-	width: 32px;
-	height: 16px;
 	left: 510px;
 
 }

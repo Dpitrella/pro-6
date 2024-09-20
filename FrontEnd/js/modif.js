@@ -21,7 +21,22 @@ const toggleModal = (open, modal) => {
     document.body.style.overflow = open ? 'hidden' : 'auto';
 };
 
-const deleteWork = (id) => {
+const resetForm = () => {
+    document.getElementById('title').value = '';
+    document.getElementById('category').value = '';
+    const imgElement = ajouterDiv.querySelector("img");  // Sélectionne l'élément <img> à l'intérieur de la div
+if (imgElement) {
+    imgElement.src = "";  // Vide la source de l'image
+    ajouterDiv.innerHTML = `<i class="fa-regular fa-image"></i>
+							<label for="file-input"  id="ajouter-button" >+ Ajouter photo</label>
+							<input type="file" id="file-input" style="display: none;" accept="image/*" >
+							<p>jpg, png : 4mo max</p>
+								`						
+		
+}
+}
+
+const deleteWork = async (id) => {
     return fetch(`http://localhost:5678/api/works/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${authToken()}` }
@@ -147,13 +162,14 @@ modal2.addEventListener('click', (e) => {
 document.getElementById('add-photo-btn').addEventListener('click', () => {
     toggleModal(false, modal1);
     toggleModal(true, modal2);
+    resetForm();
 });
 document.getElementById('goBack').addEventListener('click', () => {
     toggleModal(true, modal1);
     toggleModal(false, modal2);
 });
 // Evénement pour charger l'image sélectionnée
-ajouterButton.addEventListener('click', () => fileInput.click());
+//ajouterButton.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -190,12 +206,7 @@ document.getElementById('myForm').addEventListener('click', async (event) => {
             const works = await getWork();
             displayWorks(works, 'all');
             loadModalContent();
-            ajouterDiv.innerHTML = `
-									<i class="fa-regular fa-image"></i>
-									<button type="button" id="ajouter-button" >+ Ajouter photo</button>
-									<input type="file" id="file-input" style="display: none;" accept="image/*" >
-									<p>jpg, png : 4mo max</p>
-								`
+            resetForm()
             toggleModal(false, modal2);
         } else {
             console.error('Erreur lors de lenvoi du formulaire :', response.statusText);
